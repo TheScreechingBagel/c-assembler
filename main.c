@@ -1,9 +1,9 @@
+#include "parser.h"
+#include "scanner.h"
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 #include <string.h>
-#include "scanner.h"
-#include "parser.h"
 
 int main() {
   init_scanner("example.asm");
@@ -12,4 +12,3 @@ int main() {
   print_binary();
   return 0;
 }
-

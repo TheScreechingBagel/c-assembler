@@ -1,16 +1,14 @@
+#include "parser.h"
+#include "scanner.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "scanner.h"
-#include "parser.h"
 
 struct Parser {
   Token *current;
   int next_byte;
 } parser;
 
-Token peek() {
-  return *parser.current;
-}
+Token peek() { return *parser.current; }
 
 Token consume() {
   Token t = *parser.current;
@@ -49,12 +47,15 @@ void parse_move() {
   // compile loading constant into register 1
   if (rhs.type == TOKEN_INTEGER) {
     if (regis.value != 1) {
-      printf("Error on line %d: Can only move constant into register 1.\n", regis.line);
+      printf("Error on line %d: Can only move constant into register 1.\n",
+             regis.line);
       exit(1);
     }
 
     if (rhs.value > 63) {
-      printf("Error on line %d: Can't move numbers bigger than 63 into register 1.\n", rhs.line);
+      printf("Error on line %d: Can't move numbers bigger than 63 into "
+             "register 1.\n",
+             rhs.line);
       exit(1);
     }
 
@@ -72,7 +73,9 @@ void parse_move() {
   }
 
   // invalid case
-  printf("Error on line %d: Expected either a register or a constant for move operation.\n", rhs.line);
+  printf("Error on line %d: Expected either a register or a constant for move "
+         "operation.\n",
+         rhs.line);
   exit(1);
 }
 
@@ -97,8 +100,8 @@ void parse_lines() {
 }
 
 void print_binary() {
-  for (int i=0; i<parser.next_byte; i++) {
-    for (int j=7; j>=0; j--) {
+  for (int i = 0; i < parser.next_byte; i++) {
+    for (int j = 7; j >= 0; j--) {
       if (final_binary[i] & (1 << j)) {
         printf("1");
       } else {
@@ -108,4 +111,3 @@ void print_binary() {
     printf("\n");
   }
 }
-

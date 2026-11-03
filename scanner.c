@@ -1,8 +1,8 @@
+#include "scanner.h"
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 #include <string.h>
-#include "scanner.h"
 
 void read_file(char *filename, char **buffer) {
   long length;
@@ -35,9 +35,7 @@ void init_scanner(char *file_name) {
   scanner.line = 1;
 }
 
-char peek_char() {
-  return *scanner.current;
-}
+char peek_char() { return *scanner.current; }
 
 char consume_char() {
   char c = *scanner.current;
@@ -45,9 +43,7 @@ char consume_char() {
   return c;
 }
 
-int get_scanner_length() {
-  return (int)(scanner.current - scanner.start);
-}
+int get_scanner_length() { return (int)(scanner.current - scanner.start); }
 
 Token create_token(TokenType type, int value) {
   Token token;
@@ -70,17 +66,13 @@ void consume_whitespace() {
   }
 }
 
-bool is_digit(char c) {
-  return c >= '0' && c <= '9';
-}
+bool is_digit(char c) { return c >= '0' && c <= '9'; }
 
 bool is_alpha(char c) {
   return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_';
 }
 
-bool is_alpha_numeric(char c) {
-  return is_alpha(c) || is_digit(c);
-}
+bool is_alpha_numeric(char c) { return is_alpha(c) || is_digit(c); }
 
 Token create_int(char c) {
   int result = c - '0';
@@ -91,11 +83,11 @@ Token create_int(char c) {
   return create_token(TOKEN_INTEGER, result);
 }
 
-bool is_token_equal_to(char* s) {
+bool is_token_equal_to(char *s) {
   int scan_len = get_scanner_length();
   if (scan_len != strlen(s))
     return false;
-  for (int i=0; i<scan_len; i++)
+  for (int i = 0; i < scan_len; i++)
     if (s[i] != scanner.start[i])
       return false;
   return true;
@@ -140,12 +132,13 @@ Token scan_token() {
   if (c == '\0')
     return create_token(TOKEN_EOF, 0);
 
-  printf("Compile error on line %d: Unexpected character '%c'.\n", scanner.line, c);
+  printf("Compile error on line %d: Unexpected character '%c'.\n", scanner.line,
+         c);
   exit(1);
 }
 
 void scan_tokens() {
-  for (int i=0; true; i++) {
+  for (int i = 0; true; i++) {
     tokens[i] = scan_token();
     if (tokens[i].type == TOKEN_EOF)
       return;

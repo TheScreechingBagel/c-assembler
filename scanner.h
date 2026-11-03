@@ -21,4 +21,3 @@ Token tokens[10000];
 void init_scanner(char *file_name);
 
 void scan_tokens();
-
