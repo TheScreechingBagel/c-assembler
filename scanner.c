@@ -112,6 +112,8 @@ Token create_identifier() {
     return create_token(TOKEN_XOR, 0);
   if (is_token_equal_to("and"))
     return create_token(TOKEN_AND, 0);
+  if (is_token_equal_to("nand"))
+    return create_token(TOKEN_NAND, 0);
   if (is_token_equal_to("or"))
     return create_token(TOKEN_OR, 0);
   if (is_token_equal_to("not"))

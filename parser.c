@@ -81,37 +81,68 @@ void parse_move() {
   exit(1);
 }
 
+void parse_binary_operation(u8 opcode) {
+  Token dest = expect(TOKEN_REGISTER, "Expected a destination register.");
+  expect(TOKEN_COMMA, "Expected comma.");
+  Token lhs = expect(TOKEN_REGISTER, "Expected register 1 as first operand.");
+  expect(TOKEN_COMMA, "Expected comma.");
+  Token rhs = expect(TOKEN_REGISTER, "Expected register 2 as second operand.");
+
+  if (lhs.value != 0) {
+    printf("Error on line %d: First operand must be register 1.\n", lhs.line);
+    exit(1);
+  }
+  if (rhs.value != 1) {
+    printf("Error on line %d: Second operand must be register 2.\n", rhs.line);
+    exit(1);
+  }
+
+  compile_byte(opcode | (dest.value << 3));
+}
+
 // add DEST, reg1, reg2
 // ; Performs reg1 + reg2 and stores result into register DEST
-void parse_add() {}
+void parse_add() { parse_binary_operation(0b01000001); }
 
 // sub DEST, reg1, reg2
 // ; Performs reg1 - reg2 and stores result into register DEST
-void parse_sub() {}
+void parse_sub() { parse_binary_operation(0b01000010); }
 
 // and DEST, reg1, reg2
 // ; Performs reg1 & reg2 (bitwise and) and stores result into register DEST
-void parse_and() {}
+void parse_and() { parse_binary_operation(0b01000100); }
 
 // nand DEST, reg1, reg2
 // ; Performs ~(reg1 & reg2) (bitwise nand) and stores result into register DEST
-void parse_nand() {}
-
-// or DEST, reg1, reg2
-// ; Performs reg1 | reg2 (bitwise or) and stores result into register DEST
-void parse_or() {}
+void parse_nand() { parse_binary_operation(0b01000011); }
 
 // xor DEST, reg1, reg2
 // ; Performs reg1 ^ reg2 (bitwise xor) and stores result into register DEST
-void parse_xor() {}
+void parse_xor() { parse_binary_operation(0b01000110); }
+
+// or DEST, reg1, reg2
+// ; Performs reg1 | reg2 (bitwise or) and stores result into register DEST
+void parse_or() { parse_binary_operation(0b01000000); }
 
 // eq DEST, reg1, reg2
 // ; Performs reg1 == reg2 and stores result into register DEST
-void parse_eq() {}
+void parse_eq() { parse_binary_operation(0b01000111); }
 
 // not DEST, reg1
 // ; Performs ~reg1 (bitwise not) and stores result into register DEST
-void parse_not() {}
+void parse_not() {
+  Token dest = expect(TOKEN_REGISTER, "Expected a destination register.");
+  expect(TOKEN_COMMA, "Expected comma.");
+  Token lhs = expect(TOKEN_REGISTER, "Expected register 1 as operand.");
+
+  if (lhs.value != 0) {
+    printf("Error on line %d: Operand must be register 1.\n", lhs.line);
+    exit(1);
+  }
+
+  int opcode = 0b01000101;
+  compile_byte(opcode | (dest.value << 3));
+}
 
 void parse_line() {
   Token t = consume();
