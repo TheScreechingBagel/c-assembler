@@ -104,6 +104,23 @@ Token create_identifier() {
 
   if (is_token_equal_to("mov"))
     return create_token(TOKEN_MOV, 0);
+  if (is_token_equal_to("add"))
+    return create_token(TOKEN_ADD, 0);
+  if (is_token_equal_to("sub"))
+    return create_token(TOKEN_SUB, 0);
+  if (is_token_equal_to("xor"))
+    return create_token(TOKEN_XOR, 0);
+  if (is_token_equal_to("and"))
+    return create_token(TOKEN_AND, 0);
+  if (is_token_equal_to("or"))
+    return create_token(TOKEN_OR, 0);
+  if (is_token_equal_to("not"))
+    return create_token(TOKEN_NOT, 0);
+  if (is_token_equal_to("eq"))
+    return create_token(TOKEN_EQ, 0);
+  if (is_token_equal_to(""))
+    return create_token(TOKEN_EOF, 0);
+
   if (is_token_equal_to("reg1"))
     return create_token(TOKEN_REGISTER, 0);
   if (is_token_equal_to("reg2"))
@@ -116,6 +133,9 @@ Token create_identifier() {
     return create_token(TOKEN_REGISTER, 4);
   if (is_token_equal_to("reg6"))
     return create_token(TOKEN_REGISTER, 5);
+
+  if (is_token_equal_to(""))
+    return create_token(TOKEN_EOF, 0);
 
   printf("Compile error on line %d: unknown identifier.\n", scanner.line);
   exit(1);
