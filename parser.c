@@ -81,11 +81,75 @@ void parse_move() {
   exit(1);
 }
 
+// add DEST, reg1, reg2
+// ; Performs reg1 + reg2 and stores result into register DEST
+void parse_add() {}
+
+// sub DEST, reg1, reg2
+// ; Performs reg1 - reg2 and stores result into register DEST
+void parse_sub() {}
+
+// and DEST, reg1, reg2
+// ; Performs reg1 & reg2 (bitwise and) and stores result into register DEST
+void parse_and() {}
+
+// nand DEST, reg1, reg2
+// ; Performs ~(reg1 & reg2) (bitwise nand) and stores result into register DEST
+void parse_nand() {}
+
+// or DEST, reg1, reg2
+// ; Performs reg1 | reg2 (bitwise or) and stores result into register DEST
+void parse_or() {}
+
+// xor DEST, reg1, reg2
+// ; Performs reg1 ^ reg2 (bitwise xor) and stores result into register DEST
+void parse_xor() {}
+
+// eq DEST, reg1, reg2
+// ; Performs reg1 == reg2 and stores result into register DEST
+void parse_eq() {}
+
+// not DEST, reg1
+// ; Performs ~reg1 (bitwise not) and stores result into register DEST
+void parse_not() {}
+
 void parse_line() {
   Token t = consume();
 
   if (t.type == TOKEN_MOV) {
     parse_move();
+    return;
+  }
+  if (t.type == TOKEN_ADD) {
+    parse_add();
+    return;
+  }
+  if (t.type == TOKEN_SUB) {
+    parse_sub();
+    return;
+  }
+  if (t.type == TOKEN_AND) {
+    parse_and();
+    return;
+  }
+  if (t.type == TOKEN_NAND) {
+    parse_nand();
+    return;
+  }
+  if (t.type == TOKEN_OR) {
+    parse_or();
+    return;
+  }
+  if (t.type == TOKEN_XOR) {
+    parse_xor();
+    return;
+  }
+  if (t.type == TOKEN_EQ) {
+    parse_eq();
+    return;
+  }
+  if (t.type == TOKEN_NOT) {
+    parse_not();
     return;
   }
 
