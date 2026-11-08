@@ -8,13 +8,15 @@ void read_file(char *filename, char **buffer) {
   long length;
   FILE *f = fopen(filename, "rb");
   if (f == NULL) {
+    printf("Failed to open file: %s\n", filename);
     exit(1);
   }
   fseek(f, 0, SEEK_END);
   length = ftell(f);
   fseek(f, 0, SEEK_SET);
-  *buffer = malloc(length);
-  if (buffer == NULL) {
+  *buffer = malloc(length + 1);
+  (*buffer)[length] = '\0'; // 👀
+  if (*buffer == NULL) {
     exit(2);
   }
   fread(*buffer, 1, length, f);
