@@ -48,12 +48,6 @@ void parse_move() {
 
   // compile loading constant into register 1
   if (rhs.type == TOKEN_INTEGER) {
-    if (regis.value != 0) {
-      printf("Error on line %d: Can only move constant into register 1.\n",
-             regis.line);
-      exit(1);
-    }
-
     if (rhs.value > 63) {
       printf("Error on line %d: Can't move numbers bigger than 63 into "
              "register 1.\n",
@@ -62,6 +56,11 @@ void parse_move() {
     }
 
     compile_byte(rhs.value);
+
+    if (regis.value != 0) {
+      compile_byte(0b10000000 | regis.value);
+    }
+
     return;
   }
 
