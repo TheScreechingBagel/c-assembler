@@ -4,7 +4,7 @@ mov reg1, CONSTANT ; Move CONSTANT into register 1
     ; 00 CCCCCC where C is the bits of the constant
 
 mov A, B ; Move register B into register A
-    ; 10 AAA BBB where A/B is the bits of register A/B and
+    ; 10 BBB AAA where A/B are the bits of register A/B
 
 or A, reg1, reg2 ; Perform reg1 | reg2 and store result in register A
     ; 01 AAA 000
