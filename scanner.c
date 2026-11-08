@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+Token tokens[10000];
+
 void read_file(char *filename, char **buffer) {
   long length;
   FILE *f = fopen(filename, "rb");

@@ -16,7 +16,7 @@ typedef struct {
   int line;
 } Token;
 
-Token tokens[10000];
+extern Token tokens[10000];
 
 void init_scanner(char *file_name);
 

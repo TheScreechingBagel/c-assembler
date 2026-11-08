@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+u8 final_binary[255];
+
 struct Parser {
   Token *current;
   int next_byte;
