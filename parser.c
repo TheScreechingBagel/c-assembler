@@ -46,7 +46,7 @@ void parse_move() {
 
   // compile loading constant into register 1
   if (rhs.type == TOKEN_INTEGER) {
-    if (regis.value != 1) {
+    if (regis.value != 0) {
       printf("Error on line %d: Can only move constant into register 1.\n",
              regis.line);
       exit(1);
